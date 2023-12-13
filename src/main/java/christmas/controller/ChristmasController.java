@@ -31,7 +31,7 @@ public class ChristmasController {
         OutputView.previewGiveWay(christmasService.totalPurchase(order));
         OutputView.previewBenefitConfig(christmasService.totalConfig(date, order));
         OutputView.totalBenefitPrice(christmasService.totalBenefit(date, order));
-        OutputView.totalPaymentAfterDiscount(christmasService.totalPurchase(order) - christmasService.totalBenefit(date, order));
+        OutputView.totalPaymentAfterDiscount(christmasService.totalPurchase(order) - christmasService.totalDiscount(date, order));
         OutputView.previewEventBadge(Utils.searchBadge(christmasService.totalBenefit(date, order)));
 
     }
