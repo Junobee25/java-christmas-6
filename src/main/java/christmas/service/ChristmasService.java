@@ -22,6 +22,16 @@ public class ChristmasService {
         return mainPrice + dessertPrice + appetizerPrice + beveragePrice;
     }
 
+    public List<Integer> totalConfig(int date, Map<String, Integer> order) {
+        int christmasDiscount = calculateChristmasDiscount(date);
+        int weekDayDiscount = calculateDessertDiscount(date, order);
+        int weekEndDiscount = calculateMainDiscount(date, order);
+        int specialDiscount = calculateSpecialDiscount(date);
+        int benefit = totalBenefit(date, order);
+
+        return List.of(christmasDiscount, weekDayDiscount, weekEndDiscount, specialDiscount, benefit);
+    }
+
     private int calculateMainPrice(Map<String, Integer> order) {
         int mainTotalPrice = 0;
         List<String> mainMenu = Arrays.stream(MainType.values())
