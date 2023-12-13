@@ -20,6 +20,7 @@ public class ChristmasController {
     public void promotionEvent() {
         int date = inputDate();
         Map<String, Integer> order = inputOrder();
+        showOrderResult(date, order);
 
     }
 
@@ -27,6 +28,12 @@ public class ChristmasController {
         OutputView.previewBenefit(date);
         OutputView.orderMenu(order);
         OutputView.previewOrderPriceBeforeDiscount(christmasService.totalPurchase(order));
+        OutputView.previewGiveWay(christmasService.totalPurchase(order));
+        OutputView.previewBenefitConfig(christmasService.totalConfig(date, order));
+        OutputView.totalBenefitPrice(christmasService.totalBenefit(date, order));
+        OutputView.totalPaymentAfterDiscount(christmasService.totalPurchase(order) - christmasService.totalBenefit(date, order));
+        OutputView.previewEventBadge(Utils.searchBadge(christmasService.totalBenefit(date, order)));
+
     }
 
     public int inputDate() {
