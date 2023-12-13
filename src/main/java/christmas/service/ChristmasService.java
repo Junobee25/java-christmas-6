@@ -126,11 +126,15 @@ public class ChristmasService {
     }
 
     public int totalDiscount(int date, Map<String, Integer> order) {
-        int christmasDiscount = calculateChristmasDiscount(date);
-        int mainDiscount = calculateMainDiscount(date, order);
-        int dessertDiscount = calculateDessertDiscount(date, order);
-        int specialDiscount = calculateSpecialDiscount(date);
-        return christmasDiscount + mainDiscount + dessertDiscount + specialDiscount;
+        if (totalPurchase(order) >= 10000) {
+            int christmasDiscount = calculateChristmasDiscount(date);
+            int mainDiscount = calculateMainDiscount(date, order);
+            int dessertDiscount = calculateDessertDiscount(date, order);
+            int specialDiscount = calculateSpecialDiscount(date);
+
+            return christmasDiscount + mainDiscount + dessertDiscount + specialDiscount;
+        }
+        return 0;
     }
 
     private int calculateChristmasDiscount(int date) {
