@@ -16,7 +16,7 @@ public class Validations {
     }
 
     public static void validateDateStringToInteger(String userInput) {
-        if (!userInput.chars().allMatch(Character::isDigit)) {
+        if (!userInput.chars().allMatch(Character::isDigit) || userInput.charAt(0) == '0') {
             ErrorMessage.inputDateError();
             throw new IllegalArgumentException();
         }
@@ -58,7 +58,7 @@ public class Validations {
     }
 
     public static void validateMenuCount(String userInput) {
-        if (!userInput.chars().allMatch(Character::isDigit) || userInput == "0") {
+        if (!userInput.chars().allMatch(Character::isDigit) || userInput.charAt(0) == '0') {
             ErrorMessage.inputOrderError();
             throw new IllegalArgumentException();
         }
