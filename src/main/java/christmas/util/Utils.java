@@ -44,6 +44,8 @@ public class Utils {
             Validations.validateMenuCount(element.split(DASH)[COUNT_INDEX]);
             menu.put(element.split(DASH)[FOOD_INDEX], Integer.parseInt(element.split(DASH)[COUNT_INDEX]));
         }
+        Validations.validateOnlyBeverage(menu);
+        Validations.validateMenuCountOver(menu);
 
         return menu;
     }
