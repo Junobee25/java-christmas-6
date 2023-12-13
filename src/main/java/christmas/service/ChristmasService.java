@@ -10,6 +10,8 @@ public class ChristmasService {
 
     private static final int ZERO = 0;
     private static final int ONE_THOUSAND = 1000;
+    private static final int GIVEWAY_EVENT = 120000;
+    private static final int GIVEWAY_PRICE = 25000;
 
     public int totalPurchase(Map<String, Integer> order) {
         int mainPrice = calculateMainPrice(order);
@@ -177,5 +179,16 @@ public class ChristmasService {
             }
         }
         return discount;
+    }
+
+    public int totalBenefit(int date, Map<String, Integer> order) {
+        return totalDiscount(date, order) + totalGiveWay(order);
+    }
+
+    public int totalGiveWay(Map<String, Integer> order) {
+        if (totalPurchase(order) >= GIVEWAY_EVENT) {
+            return GIVEWAY_PRICE;
+        }
+        return 0;
     }
 }
