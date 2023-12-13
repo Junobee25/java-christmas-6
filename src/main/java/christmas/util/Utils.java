@@ -29,6 +29,8 @@ public class Utils {
 
     public static String[] splitStringViaCommas() {
         String userInput = InputView.input();
+        Validations.validateOrderIfNull(userInput);
+        Validations.validateOrderMenuError(userInput);
         return userInput.split(COMMAS);
     }
 
@@ -37,6 +39,9 @@ public class Utils {
         Map<String, Integer> menu = new HashMap<>();
 
         for (String element : userInput) {
+            Validations.validateMenuForm(element.split(DASH));
+            Validations.validateMenu(element.split(DASH)[FOOD_INDEX]);
+            Validations.validateMenuCount(element.split(DASH)[COUNT_INDEX]);
             menu.put(element.split(DASH)[FOOD_INDEX], Integer.parseInt(element.split(DASH)[COUNT_INDEX]));
         }
 
