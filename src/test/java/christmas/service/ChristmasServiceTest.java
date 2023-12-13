@@ -55,4 +55,25 @@ class ChristmasServiceTest {
         assertEquals(result1, 142000);
     }
 
+    @Test
+    void totalBenefit() {
+        //Given
+        Map<String, Integer> menu;
+        menu = Map.ofEntries(
+                Map.entry("티본스테이크", 1),
+                Map.entry("바비큐립", 1),
+                Map.entry("초코케이크", 2),
+                Map.entry("제로콜라", 1));
+
+        int date = 3;
+
+
+        //When
+        int result1 = christmasService.totalBenefit(date, menu);
+
+
+        //Then
+        assertEquals(result1, 31246);
+    }
+
 }
