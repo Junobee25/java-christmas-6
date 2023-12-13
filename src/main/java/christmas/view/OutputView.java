@@ -2,6 +2,7 @@ package christmas.view;
 
 import christmas.util.Utils;
 
+import java.util.List;
 import java.util.Map;
 
 public class OutputView {
@@ -10,6 +11,26 @@ public class OutputView {
     private static final String ORDER_MENU = "%s %d개";
     private static final String ORDER_PRICE_BEFORE_DISCOUNT_PRINT = "<할인 전 총주문 금액>";
     private static final String ORDER_PRICE_BEFORE_DISCOUNT = "%s원";
+    private static final String GIVE_WAY_PRINT = "<증정 메뉴>";
+    private static final String SHAM = "샴페인";
+    private static final String NONE = "없음";
+    private static final int ZERO = 0;
+    private static final String BENEFIT_CONFIG = "<혜택 내역>";
+    private static final List<String> BENEFIT_CONFIG_LIST =
+            List.of("크리스마스 디데이 할인: -%s원",
+                    "평일 할인: -%s원",
+                    "주말 할인: -%s원",
+                    "특별 할인: -%s원",
+                    "증정 이벤트: -%s원");
+    private static final String TOTAL_PAYMENT_AFTER_DISCOUNT = "<할인 후 예상 결제 금액>";
+    private static final String TOTAL_PAYMENT_AFTER_DISCOUNT_DETAIL = "%s원";
+
+    private static final String TOTAL_BENEFIT_PRICE = "<총 혜택 금액>";
+    private static final String TOTAL_BENEFIT_PRICE_DETAIL = "-%s원";
+
+    private static final String EVENT_BADGE = "<12월 이벤트 배지>";
+    private static final String EVENT_BADGE_DETAIL = "%s";
+
 
     public static void previewBenefit(int date) {
         System.out.printf(PREVIEW_BENEFIT, date);
@@ -27,4 +48,49 @@ public class OutputView {
         System.out.printf(ORDER_PRICE_BEFORE_DISCOUNT, Utils.formatPriceToWonType(totalPrice));
     }
 
+    public static void previewGiveWay(int totalPrice) {
+        System.out.println(GIVE_WAY_PRINT);
+
+        if (totalPrice >= 120000) {
+            System.out.println(SHAM);
+        }
+        if (totalPrice < 120000) {
+            System.out.println(NONE);
+        }
+    }
+
+    public static void previewBenefitConfig(List<Integer> totalDiscountConfig) {
+        System.out.println(BENEFIT_CONFIG);
+
+        for (int i = 0; i < totalDiscountConfig.size(); i++) {
+            if (totalDiscountConfig.get(i) != ZERO) {
+                System.out.printf(BENEFIT_CONFIG_LIST.get(i), Utils.formatPriceToWonType(totalDiscountConfig.get(i)));
+            }
+        }
+
+        if (totalDiscountConfig.stream().allMatch(discount -> discount.equals(ZERO))) {
+            System.out.println(NONE);
+        }
+    }
+
+    public static void totalBenefitPrice(int totalBenefit) {
+        System.out.println(TOTAL_BENEFIT_PRICE);
+        if (totalBenefit == ZERO) {
+            System.out.println("0원");
+        }
+        if (totalBenefit != ZERO){
+            System.out.printf(TOTAL_BENEFIT_PRICE_DETAIL, Utils.formatPriceToWonType(totalBenefit));
+        }
+
+    }
+
+    public static void totalPaymentAfterDiscount(int price) {
+        System.out.println(TOTAL_PAYMENT_AFTER_DISCOUNT);
+        System.out.printf(TOTAL_PAYMENT_AFTER_DISCOUNT_DETAIL,price);
+    }
+
+    public static void previewEventBadge(String badge) {
+        System.out.println(EVENT_BADGE);
+        System.out.printf(EVENT_BADGE_DETAIL, badge);
+    }
 }
