@@ -1,5 +1,6 @@
 package christmas.util;
 
+import christmas.validation.Validations;
 import christmas.view.InputView;
 
 import java.text.DecimalFormat;
@@ -8,6 +9,11 @@ import java.util.Map;
 
 public class Utils {
 
+    private static final String STAR = "별";
+    private static final String TREE = "트리";
+    private static final String SANTA = "산타";
+    private static final String NONE = "없음";
+
     private final static String COMMAS = ",";
     private final static String DASH = "-";
     private final static int FOOD_INDEX = 0;
@@ -15,8 +21,10 @@ public class Utils {
 
     public static int stringToInteger() {
         String userInput = InputView.input();
-        int date = Integer.parseInt(userInput);
-        return date;
+        Validations.validateDateIfNull(userInput);
+        Validations.validateDateStringToInteger(userInput);
+        Validations.validateDateRangeError(Integer.parseInt(userInput));
+        return Integer.parseInt(userInput);
     }
 
     public static String[] splitStringViaCommas() {
@@ -38,5 +46,18 @@ public class Utils {
     public static String formatPriceToWonType(int price) {
         DecimalFormat formatter = new DecimalFormat("###,###");
         return formatter.format(price);
+    }
+
+    public static String searchBadge(int totalBenefit) {
+        if (totalBenefit >= 20000) {
+            return SANTA;
+        }
+        if (totalBenefit >= 10000) {
+            return TREE;
+        }
+        if (totalBenefit >= 5000) {
+            return STAR;
+        }
+        return NONE;
     }
 }
